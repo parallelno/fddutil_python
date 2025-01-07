@@ -1,5 +1,3 @@
-# FDDUTIL-PYTHON README.md
-
 # FDD Utility Tool
 
 This project is a Python implementation of the FDD utility tool, originally written in JavaScript by Svofski (https://github.com/svofski/v06c-fddutil). The tool is designed to handle reading and writing FDD (Floppy Disk Drive) images, allowing users to manage files within these images.
