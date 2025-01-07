@@ -1,0 +1,29 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Python Debugger: Current File with Arguments",
+            "type": "debugpy",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "program": "${workspaceFolder}/src/fddutil.py",
+            "args": [
+                "-i", "rom/adskok.com",
+                "-i", "rom/guimos.com",
+                "-i", "rom/cronex.com",
+                "-i", "rom/dfight.com",
+                "-i", "rom/exolon.com",
+                "-i", "rom/maric.com",
+                "-i", "rom/ot.com",
+                "-i", "rom/putup.com",
+                "-i", "rom/riverr.com",
+                "-r", "fdd/rds308.fdd",
+                "-o", "fdd/out1.fdd"
+            ]
+        }
+    ]
+}
