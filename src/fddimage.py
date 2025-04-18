@@ -1,5 +1,5 @@
 import math
-import utils.build as build
+
 
 # Physical sector size
 FDD_SIDES = 2
@@ -156,12 +156,12 @@ class Filesystem:
 		track >>= 1
 		sector = 1 + (cluster % 5)
 		return (track, head, sector)
-	
+
 	def list_dir(self):
 		def callback(_header):
 			if _header.status <= STATUS_FILE_EXISTS and _header.extent == 0:
 				d = DirectoryEntry(self).from_header(_header)
-				build.printc(f"{_header.filename}.{_header.filetype}, size: {d.Size} bytes", build.TextColor.GRAY)
+				print(f"\033[90m{_header.filename}.{_header.filetype}, size: {d.Size} bytes\033[0m")
 			return False
 		self.read_dir(callback)
 
@@ -187,13 +187,13 @@ class Filesystem:
 		free_space = len(available_clusters) * CLUSTER_LEN
 
 		if free_space < len(_fileBytes):
-			build.exit_error(f"Disk full, free space: {free_space} bytes, remaining clusters: {len(available_clusters)}")
+			print(f"\033[90mDisk full, free space: {free_space} bytes, remaining clusters: {len(available_clusters)}\033[0m")
 			return False
 
 		header = MDHeader().from_name(_fileName)
 
-		# find header index?
-		def allocate_clusters(_filesystem, _header, _available_clusters : int, _remaining_bytes : int):
+		# find header index ?
+		def allocate_clusters(_filesystem, _header, _available_clusters, _remaining_bytes):
 			cluster_index = 0
 			extent = 0
 			def callback(existing_header):
@@ -203,9 +203,9 @@ class Filesystem:
 					if (existing_header.filename != "åååååååå" or existing_header.filetype != "ååå"):
 						old_file = existing_header.filename + "." + existing_header.filetype 
 
-					build.printc(f"Saved to header: {existing_header.Index}. Previously stored file: {old_file}", build.TextColor.GRAY)
+					print(f"\033[90mSaved to header: {existing_header.Index}. Previously stored file: {old_file}\033[0m")
 					# allocate clusters
-					_header.records = math.ceil(_remaining_bytes // 128)
+					_header.records = math.ceil(_remaining_bytes / 128)
 					_header.extent = extent
 					extent += 1
 					_header.records = min(_header.records, RECORD_SIZE)
@@ -261,7 +261,7 @@ class Filesystem:
 			return DirectoryEntry(self).from_header(result)
 		return None
 	'''
-	
+
 	'''
 	def read_bytes(self, dirent):
 		result = bytearray(dirent.Size)
